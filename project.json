@@ -1,0 +1,16 @@
+{
+    "$schema": "https://schemas.cute.engineering/stable/cutekit.manifest.project.v1",
+    "type": "project",
+    "id": "odoo/odoo",
+    "description": "Open Source Apps To Grow Your Business.",
+    "extern": {
+        "odoo/odoo": {
+            "git": "git@odoo.com:odoo/odoo",
+            "tag": "master"
+        },
+        "odoo/enterprise": {
+            "git": "git@odoo.com:odoo/enterprise",
+            "tag": "master"
+        }
+    }
+}
