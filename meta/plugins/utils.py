@@ -25,10 +25,7 @@ class Cache(UserDict):
         self.data[key] = value
 
     def __getitem__(self, item):
-        try:
-            return self.data[item]
-        except KeyError:
-            return None
+        return self.data[item]
 
     def finilize(self):
         with self.path.open("w") as f:

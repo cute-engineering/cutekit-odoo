@@ -25,7 +25,7 @@ def _(args: cli.Args):
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
 
-    cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.10"))
+    cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
 
     pip_path = Path(environ["PYENV_ROOT"]) / "versions" / f"odoo-{cache['ODOO_VERSION']}" / "bin" / "pip"
