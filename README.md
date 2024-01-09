@@ -6,7 +6,7 @@
 </p>
 <h1 align="center">Odoo + Cutekit = :heart:</h1>
 <p align="center">
-    **Odoo** with the power of Cutekit, the *magical* build system and package manager
+    <b>Odoo</b> with the power of Cutekit, the *magical* build system and package manager
 </p>
 <br/>
 <br/>
