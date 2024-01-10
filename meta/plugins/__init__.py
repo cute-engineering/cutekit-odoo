@@ -7,5 +7,6 @@ def _(args: cli.Args):
 from . import (
     venv,
     repo,
-    instance
+    instance,
+    misc
 )

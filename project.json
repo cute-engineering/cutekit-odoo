@@ -11,6 +11,14 @@
         "odoo/enterprise": {
             "git": "git@github.com:odoo/enterprise",
             "tag": "master"
+        },
+        "odoo/upgrade": {
+            "git": "git@github.com:odoo/upgrade",
+            "tag": "master"
+        },
+        "odoo/upgrade-util": {
+            "git": "git@github.com:odoo/upgrade-util",
+            "tag": "master"
         }
     }
 }

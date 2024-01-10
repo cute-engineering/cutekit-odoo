@@ -5,11 +5,12 @@ from . import utils
 @cli.command("i", "odoo/init", "Create a new Odoo instance.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
-    utils.ensureVenv(cache)
-    utils.bootstrapOdoo(cache)
 
     cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
+
+    utils.ensureVenv(cache)
+    utils.bootstrapOdoo(cache)
 
     new = args.consumeOpt("n", False)
     stop = args.consumeOpt("s", False)
@@ -35,11 +36,12 @@ def _(args: cli.Args):
 @cli.command("s", "odoo/start", "Start an Odoo instance.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
-    utils.ensureVenv(cache)
-    utils.bootstrapOdoo(cache)
 
     cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
+
+    utils.ensureVenv(cache)
+    utils.bootstrapOdoo(cache)
 
     from odoo.tools.config import config
 
@@ -54,12 +56,13 @@ def _(args: cli.Args):
 @cli.command("t", "odoo/test", "Run Odoo tests.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
-    utils.ensureVenv(cache)
-    utils.bootstrapOdoo(cache)
 
     cache["TEST_TAGS"] = args.consumeArg() or cache["TEST_TAGS"]
     cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
+
+    utils.ensureVenv(cache)
+    utils.bootstrapOdoo(cache)
 
     from odoo.tools.config import config
 
