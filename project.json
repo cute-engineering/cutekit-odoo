@@ -19,6 +19,10 @@
         "odoo/upgrade-util": {
             "git": "git@github.com:odoo/upgrade-util",
             "tag": "master"
+        },
+        "odoo/design-themes": {
+            "git": "git@github.com:odoo/design-themes",
+            "tag": "master"
         }
     }
 }

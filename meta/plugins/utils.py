@@ -63,6 +63,9 @@ def bootstrapOdoo(cache: Cache):
 def startOdoo(stop: bool = False):
     from odoo.tools.config import config
     from odoo.service.server import start
+    from odoo.netsvc import init_logger
+
+    init_logger()
 
     exit(
         start(
