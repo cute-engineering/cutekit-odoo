@@ -1,4 +1,4 @@
-from cutekit import cli, model, const
+from cutekit import cli, model, shell
 from pathlib import Path
 import subprocess
 from . import utils
@@ -20,8 +20,8 @@ def _(args: cli.Args):
     from odoo.modules.module import get_modules, initialize_sys_path
     from odoo.service.db import _create_empty_database, DatabaseExists
 
-    config["addons_path"] += "," + ",".join(cache.registry.project.externDirs)
     config.parse_config()
+    config["addons_path"] = "," + ",".join([str(Path(e).absolute()) for e in cache.registry.project.externDirs])
     initialize_sys_path()
 
     if new or not cache.get("MODULES"):
@@ -32,10 +32,12 @@ def _(args: cli.Args):
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
     config['stop_after_init'] = stop
+    shell.exec("dropdb", config['db_name'])
 
     try:
         _create_empty_database(config["db_name"])
     except DatabaseExists:
+        print("OH NO")
         pass
 
     cache.finilize()
@@ -54,10 +56,12 @@ def _(args: cli.Args):
 
     from odoo.tools.config import config
 
-    config["addons_path"] += "," + ",".join([str(Path(e).absolute()) for e in cache.registry.project.externDirs])
+    config.parse_config()
+    config["addons_path"] = utils.getOdooAddonsPath(cache)
     config["db_name"] = f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
+
 
     cache.finilize()
     utils.startOdoo()
@@ -75,12 +79,14 @@ def _(args: cli.Args):
 
     from odoo.tools.config import config
 
+    config.parse_config()
     config["test_enable"] = True
     config["test_tags"] = cache["TEST_TAGS"]
-    config["addons_path"] += "," + ",".join(cache.registry.project.externDirs)
+    config["addons_path"] = utils.getOdooAddonsPath(cache)
     config["db_name"] = f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
+
 
     cache.finilize()
     utils.startOdoo(stop=True)

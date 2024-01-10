@@ -73,3 +73,15 @@ def startOdoo(stop: bool = False):
             stop=stop
         )
     )
+
+def getOdooAddonsPath(cache: Cache) -> str:
+    addons_path = ""
+
+    for repo in cache.registry.project.externDirs:
+        if repo.endswith("odoo"):
+            addons_path += str(Path(cache.rootdir / repo / "addons").absolute())
+        else:
+            addons_path += str(Path(cache.rootdir / repo).absolute())
+        addons_path += ","
+
+    return addons_path[:-1]
