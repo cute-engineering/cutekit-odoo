@@ -28,6 +28,7 @@ def _(args: cli.Args):
         "folders": [{ 'path': str(Path(e).absolute()) } for e in cache.registry.project.externDirs],
         "settings": {
             "python.defaultInterpreterPath": str(env_path / "bin" / "python"),
+            "python.analysis.extraPaths": [str(Path(e).absolute()) for e in cache.registry.project.externDirs],
         }
     }
 

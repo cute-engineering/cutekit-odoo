@@ -37,7 +37,6 @@ def _(args: cli.Args):
     try:
         _create_empty_database(config["db_name"])
     except DatabaseExists:
-        print("OH NO")
         pass
 
     cache.finilize()
@@ -65,6 +64,31 @@ def _(args: cli.Args):
 
     cache.finilize()
     utils.startOdoo()
+
+
+@cli.command("S", "odoo/shell", "Run Odoo shell.")
+def _(args: cli.Args):
+    cache = utils.Cache(model.Registry.use(args))
+
+    cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
+    cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
+
+    utils.ensureVenv(cache)
+    utils.bootstrapOdoo(cache)
+
+    from odoo.tools.config import config
+    from odoo.cli.command import commands
+
+    config.parse_config()
+    config["addons_path"] = utils.getOdooAddonsPath(cache)
+    config["db_name"] = f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
+    config["db_host"] = "127.0.0.1"
+    config["http_interface"] = "127.0.0.1"
+    config["shell_interface"] = "python"
+
+    cache.finilize()
+    commands["shell"]().run(None)
+
 
 @cli.command("t", "odoo/test", "Run Odoo tests.")
 def _(args: cli.Args):

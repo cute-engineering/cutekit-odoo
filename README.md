@@ -103,6 +103,13 @@ $ ck o t (--pyver=3.11) (--ver=master) TEST_TAGS
 ```
 Will run a test. Please read [Odoo's documentation about test](https://www.odoo.com/documentation/17.0/developer/reference/backend/testing.html) for more informations.
 
+4. Shell
+```shell
+$ cutekit odoo shell (--pyver=3.11) (--ver=master)
+$ ck o S (--pyver=3.11) (--ver=master)
+```
+Will run the Odoo shell with the default Python interpreter.
+
 ## License
 
 <a href="https://opensource.org/licenses/MIT">
