@@ -2,7 +2,7 @@
 <br/>
 <br/>
 <p align="center">
-    <img src="https://github.com/cute-engineering/cutekit/blob/stable/logo.png?raw=true" width="200" height="200">
+    <img src="doc/logo.svg" width="200" height="200">
 </p>
 <h1 align="center">Odoo + Cutekit = :heart:</h1>
 <p align="center">
@@ -13,8 +13,7 @@
 <br/>
 
 > [!warning]
-> this project uses the unstable [cutekit 0.7](https://github.com/cute-engineering/cutekit/tree/0.7-dev) with an additional [patch](./meta/misc/ck_odoo_patch.diff)
-
+> this project uses the unstable [cutekit 0.7](https://github.com/cute-engineering/cutekit/tree/0.7-dev)
 
 ## Available commands
 ### Branch management

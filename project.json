@@ -6,23 +6,28 @@
     "extern": {
         "odoo/odoo": {
             "git": "git@github.com:odoo/odoo",
-            "tag": "master"
+            "tag": "master",
+            "depth": "deep"
         },
         "odoo/enterprise": {
             "git": "git@github.com:odoo/enterprise",
-            "tag": "master"
+            "tag": "master",
+            "depth": "deep"
         },
         "odoo/upgrade": {
             "git": "git@github.com:odoo/upgrade",
-            "tag": "master"
+            "tag": "master",
+            "depth": "deep"
         },
         "odoo/upgrade-util": {
             "git": "git@github.com:odoo/upgrade-util",
-            "tag": "master"
+            "tag": "master",
+            "depth": "deep"
         },
         "odoo/design-themes": {
             "git": "git@github.com:odoo/design-themes",
-            "tag": "master"
+            "tag": "master",
+            "depth": "deep"
         }
     }
 }
