@@ -16,18 +16,26 @@ def _(args: cli.Args):
     stop = args.consumeOpt("s", False)
     
     from odoo.tools.config import config
-    from odoo.modules.module import get_modules
+    from odoo.modules.module import get_modules, initialize_sys_path
+    from odoo.service.db import _create_empty_database, DatabaseExists
 
     config["addons_path"] += "," + str(cache.rootdir / const.EXTERN_DIR / "odoo" / "enterprise")
     config.parse_config()
+    initialize_sys_path()
 
-    if new:
+    if new or not cache.get("MODULES"):
         cache["MODULES"] = subprocess.run(["fzf", "--ansi", "-m"], input="\n".join(get_modules()), text=True, stdout=subprocess.PIPE).stdout.split()
     
-    config["init"] = {k: 1 for k in cache["MODULES"]}
-    config["db_name"] = f"odoo-{cache['ODOO_VERSION'].split('-')[0]})"
+    config["init"] = {k: 1 for k in cache["MODULES"] + ["base"]}
+    config["db_name"] = f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
+    config['stop_after_init'] = stop
+
+    try:
+        _create_empty_database(config["db_name"])
+    except DatabaseExists:
+        pass
 
     cache.finilize()
     utils.startOdoo(stop=stop)

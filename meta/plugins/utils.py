@@ -64,8 +64,6 @@ def startOdoo(stop: bool = False):
     from odoo.tools.config import config
     from odoo.service.server import start
 
-    config.parse_config()
-
     exit(
         start(
             preload=config["db_name"].split(","),
