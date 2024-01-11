@@ -1,6 +1,10 @@
 from cutekit import cli, model, shell
 from pathlib import Path
 import subprocess
+import logging
+import random
+
+from .witty import WITTY
 from . import utils
 
 @cli.command("i", "odoo/init", "Create a new Odoo instance.")
@@ -61,7 +65,6 @@ def _(args: cli.Args):
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
 
-
     cache.finilize()
     utils.startOdoo()
 
@@ -87,6 +90,7 @@ def _(args: cli.Args):
     config["shell_interface"] = "python"
 
     cache.finilize()
+
     commands["shell"]().run(None)
 
 
@@ -102,6 +106,15 @@ def _(args: cli.Args):
     utils.bootstrapOdoo(cache)
 
     from odoo.tools.config import config
+    from odoo.tests.result import OdooTestResult
+
+    def logError(self, flavour, test, error):
+        err = self._exc_info_to_string(error, test)
+        caller_infos = self.getErrorCallerInfo(error, test)
+        self.log(logging.INFO, '=' * 70, test=test, caller_infos=caller_infos)  # keep this as info !!!!!!
+        self.log(logging.ERROR, "%s: \033[36m%s\033[0m\n%s", flavour, random.choice(WITTY), err, test=test, caller_infos=caller_infos)
+
+    OdooTestResult.logError = logError
 
     config.parse_config()
     config["test_enable"] = True
