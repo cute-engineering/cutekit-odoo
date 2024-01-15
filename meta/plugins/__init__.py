@@ -10,3 +10,8 @@ from . import (
     instance,
     misc
 )
+
+try:
+    from . import private
+except ImportError:
+    pass
