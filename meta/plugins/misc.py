@@ -1,12 +1,26 @@
-from cutekit import cli, model, shell
+from cutekit import cli, const, model, shell
 from tempfile import gettempdir
 from pathlib import Path
 from . import utils
 
+import subprocess
 import os
 import json
 import sqlite3
 
+
+@cli.command("g", "odoo/goto", "Go to Odoo source code.")
+def _(args: cli.Args):
+    cache = utils.Cache(model.Registry.use(args))
+    directory = subprocess.run(
+        ["fzf", "--ansi", "-1"],
+        input="\n".join([Path(d).name for d in cache.registry.project.externDirs]),
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout.strip()
+
+    os.chdir(cache.rootdir / const.EXTERN_DIR / 'odoo' / directory)
+    os.system("$SHELL")
 
 @cli.command("e", "odoo/edit", "Edit Odoo source code.")
 def _(args: cli.Args):
@@ -53,8 +67,8 @@ def _(args: cli.Args):
         cur.execute("UPDATE ItemTable SET value = ? WHERE key = 'Odoo.odoo'", (json.dumps(code_cfg),))
         con.commit()
 
-        with open(Path(gettempdir()) / "odoo.code-workspace", "w") as f:
-            json.dump(cfg, f)
-            shell.exec("code", f.name)
+    with open(Path(gettempdir()) / "odoo.code-workspace", "w") as f:
+        json.dump(cfg, f)
+        shell.exec("code", f.name)
 
     cache.finilize()

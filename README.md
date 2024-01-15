@@ -33,10 +33,11 @@ This will bring up a menu and you can choose a branch, it will switch every repo
 
 2. Rebase
 ```shell
-$ cutekit odoo repo rebase (--target=master)
-$ ck o r r (--target=master)
+$ cutekit odoo repo rebase (--target=master) (--select)
+$ ck o r r (--target=master) (--select)
 ```
-Will rebase every repositories mentionned in [project.json](./project.json) to the branch mentionned by the `target` parameter. If not provided, the default target is the `master` branch
+Will rebase every repositories mentionned in [project.json](./project.json) to the branch mentionned by the `target` parameter. If not provided, the default target is the `master` branch.
+By default, it will rebase every repository. Use the `--select` switch to select which directories you want to rebase.
 
 3. Force push
 ```shell
@@ -110,12 +111,29 @@ $ ck o S (--pyver=3.11) (--ver=master)
 ```
 Will run the Odoo shell with the default Python interpreter.
 
+### Misc
+
+1. Edit
+```shell
+$ cutekit odoo edit (--pyver=3.11) (--ver=master) (--no-ext)
+$ ck o e (--pyver=3.11) (--ver=master) (--no-ext)
+```
+
+This command will create a vscode workspace and will also configure the Odoo extension. use the `no-ext` if you didn't install the official Odoo extension.
+
+2. Goto
+```shell
+$ cutekit odoo goto
+$ ck o g
+```
+Simple command that will change your CWD to the repository you select.
+
 ## License
 
 <a href="https://opensource.org/licenses/MIT">
   <img align="right" height="96" alt="MIT License" src="https://raw.githubusercontent.com/skift-org/skift/main/doc/mit.svg" />
 </a>
 
-The skift operating system and its core components are licensed under the **MIT License**.
+The Odoo cutekit and its core components are licensed under the **MIT License**.
 
 The full text of the license can be accessed via [this link](https://opensource.org/licenses/MIT) and is also included in the [LICENSE](LICENSE) file of this software package.

@@ -28,6 +28,11 @@
             "git": "git@github.com:odoo/design-themes",
             "tag": "master",
             "deep": true
+        },
+        "odoo/runbot": {
+            "git": "git@github.com:odoo/runbot",
+            "tag": "16.0",
+            "deep": true
         }
     }
 }
