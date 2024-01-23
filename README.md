@@ -128,6 +128,14 @@ $ ck o g
 ```
 Simple command that will change your CWD to the repository you select.
 
+## Use it with Nix
+
+You can use Nix to make an environment with all the necessary dependencies :
+
+```bash
+$ nix develop ./meta/nix
+```
+
 ## License
 
 <a href="https://opensource.org/licenses/MIT">

@@ -41,6 +41,9 @@ def branchSwitch(branch_name: str, cache: Cache):
             shell.exec("git", "-C", cache.rootdir / repo, "checkout", "--quiet", "master")
 
 def ensureVenv(cache: Cache):
+    if "IN_NIX_SHELL" in os.environ:
+        return # Thy shall not use virtual environments in nix-shell
+
     if not str(Path(sys.executable).parent).startswith(str(Path(os.environ["PYENV_ROOT"]))):
         env_path = Path(os.environ["PYENV_ROOT"]) / "versions" / f"odoo-{cache['ODOO_VERSION']}"
 

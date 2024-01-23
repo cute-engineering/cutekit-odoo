@@ -36,12 +36,13 @@ def _(args: cli.Args):
     config["db_host"] = "127.0.0.1"
     config["http_interface"] = "127.0.0.1"
     config['stop_after_init'] = stop
-    shell.exec("dropdb", config['db_name'])
 
     try:
-        _create_empty_database(config["db_name"])
-    except DatabaseExists:
+        shell.exec("dropdb", config['db_name'])
+    except RuntimeError:
         pass
+
+    _create_empty_database(config["db_name"])
 
     cache.finilize()
     utils.startOdoo(stop=stop)
