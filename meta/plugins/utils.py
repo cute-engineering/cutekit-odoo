@@ -68,6 +68,16 @@ def startOdoo(stop: bool = False):
     from odoo.service.server import start
     from odoo.netsvc import init_logger
 
+    import warnings
+    warnings.filterwarnings("ignore", category=DeprecationWarning)    
+
+    try:
+        from pdbpp import set_trace
+        import sys
+        sys.breakpointhook = set_trace
+    except ImportError:
+        pass
+
     init_logger()
 
     exit(

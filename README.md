@@ -74,10 +74,13 @@ Will give you shell access to the venv used to run a specified Odoo instance
 
 2. Init
 ```shell
-$ cutekit odoo venv init (--py-ver=3.11) (--ver=master)
+$ cutekit odoo venv init (--py-ver=3.11) (--ver=master) (--stop) (--new)
 $ ck o v i (--py-ver=3.11) (--ver=master)
 ```
 Will create automaticly a Python virtualenv with every dependencies installed
+
+The stop flag will activate `--stop-after-init` on Odoo, this will halt Odoo after installation of the selected modules.
+The init flag will allow you to reselect modules. By default, cutekit will remember them.
 
 ### Instance management
 
