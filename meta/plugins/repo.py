@@ -55,6 +55,7 @@ def _(args: cli.Args):
     
     if not select:
         for repo in cache.registry.project.externDirs:
+            print(f"Rebasing {repo}")
             shell.exec("git", "-C", cache.rootdir / repo, "fetch", "origin", target)
             shell.exec("git", "-C", cache.rootdir / repo, "rebase", f"origin/{target}")
     else:
@@ -64,9 +65,6 @@ def _(args: cli.Args):
             text=True,
             stdout=subprocess.PIPE,
         ).stdout.strip().split()
-
-        print(directories)
-        
 
         for repo in directories:
             shell.exec("git", "-C", cache.rootdir / const.EXTERN_DIR / "odoo" / repo, "fetch", "origin", target)

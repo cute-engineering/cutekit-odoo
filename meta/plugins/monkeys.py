@@ -1,10 +1,12 @@
 from .witty import WITTY
+from .unwrapper import safeEvalUnwrap
 from tempfile import TemporaryDirectory
 
 import logging
 import random
 import uuid
 import os.path
+import pdb
 
 srcDirectory = TemporaryDirectory()
 
@@ -42,3 +44,10 @@ def compileKeepSrc():
         return compile_orig(source, filename, mode, flags, dont_inherit, optimize, _feature_version=_feature_version)
 
     __builtins__["compile"] = new_compile
+
+def customDebuggerFunc():
+    def do_unwrap(self, arg):
+        code = self.curframe.f_globals.get(arg, self.curframe.f_locals.get(arg, arg))
+        print(safeEvalUnwrap(code))
+
+    pdb.Pdb.do_unwrap = do_unwrap

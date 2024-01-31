@@ -10,6 +10,13 @@ import json
 import sqlite3
 
 
+@cli.command("c", "odoo/cache", "Dump the cache")
+def _(args: cli.Args):
+    cache = utils.Cache(model.Registry.use(args))
+    for key, value in cache.items():
+        print(f"{key} = {value}")
+
+
 @cli.command("g", "odoo/goto", "Go to Odoo source code.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))

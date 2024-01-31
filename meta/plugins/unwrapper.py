@@ -41,7 +41,5 @@ class Unwrapper(ast.NodeTransformer):
         
         return node
 
-def addSafeEvalUnwrapBuiltins():
-    def safeEvalUnwrap(code):
-        return ast.unparse(Unwrapper().visit(ast.parse(code)))
-    __builtins__["unwrap"] = safeEvalUnwrap
+def safeEvalUnwrap(code):
+    return ast.unparse(Unwrapper().visit(ast.parse(code)))

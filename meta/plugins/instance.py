@@ -107,9 +107,9 @@ def _(args: cli.Args):
 
     from odoo.tools.config import config
 
-    # monkeys.httpTestNoTimeout()
     monkeys.odooTestWitty()
     monkeys.compileKeepSrc()
+    monkeys.customDebuggerFunc()
 
     config.parse_config()
     config["test_enable"] = True
@@ -120,5 +120,5 @@ def _(args: cli.Args):
     config["http_interface"] = "127.0.0.1"
 
     cache.finilize()
-    unwrapper.addSafeEvalUnwrapBuiltins()
+    # unwrapper.addSafeEvalUnwrapBuiltins()
     utils.startOdoo(stop=True)
