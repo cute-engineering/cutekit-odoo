@@ -40,15 +40,12 @@ def _(args: cli.Args):
     utils.ensureVenv(cache)
 
 
-    if "IN_NIX_SHELL" in os.environ:
-        env_path = Path(sys.executable).parents[1]
-    else:
-        env_path = Path(os.environ['PYENV_ROOT']) / "versions" / f"odoo-{cache['ODOO_VERSION']}"
+    env_path = Path(os.environ['PYENV_ROOT']) / "versions" / f"odoo-{cache['ODOO_VERSION']}"
+    if not env_path.exists():
+        env_path = Path(os.environ["PYENV_ROOT"]) / "versions" / f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
         if not env_path.exists():
-            env_path = Path(os.environ["PYENV_ROOT"]) / "versions" / f"odoo-{cache['ODOO_VERSION'].split('-')[0]}"
-            if not env_path.exists():
-                print("[-] Virtual environment not found")
-                return
+            print("[-] Virtual environment not found")
+            return
 
     cfg = {
         "folders": [{ 'path': str(Path(e).absolute()) } for e in cache.registry.project.externDirs],

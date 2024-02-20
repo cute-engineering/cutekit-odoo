@@ -13,10 +13,6 @@ def _(args: cli.Args):
 @cli.command("a", "odoo/venv/activate", "Activate Odoo virtual environment.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
-
-    if "IN_NIX_SHELL" in os.environ:
-        return
-
     cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.10"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
 
@@ -35,10 +31,6 @@ def _(args: cli.Args):
 @cli.command("i", "odoo/venv/init", "Initialize Odoo virtual environment.")
 def _(args: cli.Args):
     cache = utils.Cache(model.Registry.use(args))
-
-    if "IN_NIX_SHELL" in os.environ:
-        return
-
     cache["PYTHON_VERSION"] = args.consumeOpt("py-ver", cache.get("PYTHON_VERSION", "3.11"))
     cache["ODOO_VERSION"] = args.consumeOpt("ver", cache.get("ODOO_VERSION", "master"))
 
